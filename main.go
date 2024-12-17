@@ -24,7 +24,7 @@ func main() {
 	r.HandleFunc("/login", handlers.LoginHandler).Methods("POST")
 	r.HandleFunc("/send-email", handlers.SendEmailHandler).Methods("POST")
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("¡Servidor funcionando correctamente con Github Actions!"))
+		w.Write([]byte("¡Servidor funcionando exitosamente con Github Actions!"))
 	})
 
 	// Iniciar servidor
