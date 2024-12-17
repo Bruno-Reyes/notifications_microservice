@@ -1,0 +1,6 @@
+# Archivos y carpetas a ignorar
+.git
+*.md
+node_modules
+Dockerfile
+docker-compose.yml
