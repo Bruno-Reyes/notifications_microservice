@@ -22,7 +22,7 @@ jobs:
           username: ${{ secrets.AZURE_VM_USER }} # Personalizar con tu usuario SSH
           key: ${{ secrets.AZURE_VM_SSH_KEY }} # Personalizar con tu clave privada SSH
           script: |
-            cd notificacions_microservice
+            cd notifications_microservice
 
             # Detener y eliminar el contenedor existente
             docker stop notificaciones || true 
