@@ -1,0 +1,38 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main  # Personaliza si usas otra rama
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Clonar el repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Configurar SSH en GitHub Actions
+      - name: Setup SSH connection
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AZURE_VM_HOST }} # Personalizar con tu IP o dominio
+          username: ${{ secrets.AZURE_VM_USER }} # Personalizar con tu usuario SSH
+          key: ${{ secrets.AZURE_VM_SSH_KEY }} # Personalizar con tu clave privada SSH
+          script: |
+            cd notificacions_microservice/ 
+
+            # Detener y eliminar el contenedor existente
+            docker stop notificaciones || true 
+            docker rm notificaciones || true 
+
+            # Actualizar el repositorio
+            git pull origin main 
+
+            # Reconstruir la imagen
+            docker build -t notificaciones . 
+
+            # Ejecutar el nuevo contenedor
+            docker run -d --name notificaciones -p 8080:8080 notificaciones
