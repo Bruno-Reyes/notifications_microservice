@@ -17,6 +17,10 @@ type TKey struct {
 	Key string `json:"key"`
 }
 
+type TResponse struct {
+	Token string `json:"token"`
+}
+
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -26,6 +30,8 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	if key.Key == serverKey {
 		tokenString := createToken("Authorized")
 		w.WriteHeader(http.StatusOK)
+		response := TResponse{Token: tokenString}
+		json.NewEncoder(w).Encode(response)
 		fmt.Fprint(w, tokenString)
 		return
 	} else {
