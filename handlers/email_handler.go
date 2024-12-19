@@ -32,7 +32,6 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		response := TResponse{Token: tokenString}
 		json.NewEncoder(w).Encode(response)
-		fmt.Fprint(w, tokenString)
 		return
 	} else {
 		w.WriteHeader(http.StatusUnauthorized)
