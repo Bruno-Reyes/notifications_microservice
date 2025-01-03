@@ -94,7 +94,7 @@ func createToken(permission string) string {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256,
 		jwt.MapClaims{
 			"permission": permission,
-			"exp":        time.Now().Add(time.Hour * 24).Unix(),
+			"exp":        time.Now().Add(time.Hour).Unix(),
 		})
 
 	var secretKey = []byte(os.Getenv("SECRET_KEY"))
